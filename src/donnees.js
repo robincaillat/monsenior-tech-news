@@ -68,12 +68,10 @@ export function validerJournees(brut) {
         if (!texte(v[k])) erreur(`video.${k}`, 'texte manquant ou vide.');
       }
       if (!/^\d{1,2}:\d{2}$/.test(v.duree.trim())) erreur('video.duree', `« ${v.duree} » doit ressembler à 1:20.`);
-      if (v.sous_titres !== undefined && !texte(v.sous_titres)) erreur('video.sous_titres', 'texte vide.');
       video = {
         url: v.url.trim(),
         legende: v.legende.trim(),
         duree: v.duree.trim(),
-        sous_titres: v.sous_titres?.trim() ?? null,
       };
     }
 

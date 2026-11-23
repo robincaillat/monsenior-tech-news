@@ -28,7 +28,6 @@ const ICONES = {
   gauche: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>',
   droite: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>',
   lecture: '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>',
-  sousTitres: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="14" x="3" y="5" rx="2"/><path d="M7 15h4M15 15h2M7 11h2M13 11h4"/></svg>',
 };
 
 // ---------- Mise en page commune ----------
@@ -209,15 +208,9 @@ function carteChangement(c) {
 }
 
 function lecteurVideo(v) {
-  const piste = v.sous_titres
-    ? `<track kind="subtitles" srclang="fr" label="Français" src="${esc(v.sous_titres)}" default>`
-    : '';
-  const mention = v.sous_titres
-    ? `<span class="video__st">${ICONES.sousTitres}Sous-titres</span>`
-    : '';
   return `<figure class="video" data-video>
-    <video controls preload="metadata" crossorigin="anonymous" src="${esc(v.url)}"${apercu(v.url) ? ` poster="${esc(apercu(v.url))}"` : ''} aria-label="${esc(v.legende)}">${piste}</video>
-    <figcaption><span>${esc(v.legende)} · ${esc(v.duree)}</span>${mention}</figcaption>
+    <video controls preload="metadata" src="${esc(v.url)}"${apercu(v.url) ? ` poster="${esc(apercu(v.url))}"` : ''} aria-label="${esc(v.legende)}"></video>
+    <figcaption><span>${esc(v.legende)} · ${esc(v.duree)}</span></figcaption>
   </figure>`;
 }
 
@@ -252,8 +245,6 @@ function outilsTech(j) {
         <input id="fichier" name="fichier" type="file" accept="video/*" required>
         <label for="legende">Légende</label>
         <input id="legende" name="legende" type="text" required value="${j.video ? esc(j.video.legende) : ''}" placeholder="Démo : ${esc(j.changements[0].titre)}">
-        <label for="vtt">Sous-titres (fichier .vtt, facultatif)</label>
-        <input id="vtt" name="vtt" type="file" accept=".vtt,text/vtt">
         <progress data-progression max="1" value="0" hidden></progress>
         <p class="admin-erreur" data-erreur role="alert" hidden></p>
         <div class="dialogue__actions">

@@ -78,7 +78,6 @@
     e.preventDefault();
     var bouton = formulaire.querySelector('button[type="submit"]');
     var fichier = formulaire.querySelector('#fichier').files[0];
-    var vtt = formulaire.querySelector('#vtt').files[0];
     erreurForm.hidden = true;
     if (fichier.size > 100 * 1024 * 1024) {
       erreurDans(erreurForm, new Error('La vidéo dépasse 100 Mo. Compresse-la avant de la publier.'));
@@ -90,15 +89,14 @@
     progression.value = 0;
     var video;
     envoyer(fichier, 'video', function (p) { progression.value = p; })
-      .then(function (v) { video = v; return vtt ? envoyer(vtt, 'raw') : null; })
-      .then(function (st) {
+      .then(function (v) {
+        video = v;
         bouton.textContent = 'Enregistrement…';
         return api('/api/video', 'POST', {
           date: date,
           url: video.secure_url,
           duree: duree(video.duration),
           legende: formulaire.querySelector('#legende').value,
-          sous_titres: st ? st.secure_url : undefined,
         });
       })
       .then(function () {

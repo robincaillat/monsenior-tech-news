@@ -33,8 +33,7 @@
       "video": {
         "url": "https://exemple.test/demo.mp4",
         "legende": "Démo : les témoignages sur la page d'entrée de Mon Espace",
-        "duree": "1:20",
-        "sous_titres": "https://exemple.test/demo.vtt"
+        "duree": "1:20"
       }
     },
     {

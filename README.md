@@ -22,8 +22,7 @@ Les nouveautés de Mon Espace et de Pulse, jour par jour. Site statique, sans ba
   "video": {
     "url": "https://…/demo.mp4",
     "legende": "Démo : …",
-    "duree": "1:20",
-    "sous_titres": "https://…/demo.vtt"
+    "duree": "1:20"
   }
 }
 ```
@@ -33,7 +32,7 @@ Les nouveautés de Mon Espace et de Pulse, jour par jour. Site statique, sans ba
 Règles :
 
 - `produit` vaut `mon-espace` ou `pulse`.
-- `video` est facultatif. Sans vidéo, aucun bloc vidéo n'apparaît. `sous_titres` (fichier WebVTT) est facultatif mais conseillé.
+- `video` est facultatif. Sans vidéo, aucun bloc vidéo n'apparaît.
 - L'ordre des entrées dans le fichier n'a pas d'importance : le site trie du plus récent au plus ancien.
 - Si une entrée est invalide (date manquante, produit inconnu, texte vide…), la construction échoue et le message dit quelle entrée et quel champ corriger. Le site en ligne reste alors sur la version précédente.
 
@@ -41,7 +40,7 @@ Le lien « Une question ? » du pied de page se règle dans `data/site.json` (`"
 
 ## Ajouter une vidéo (espace Équipe tech)
 
-Le lien « Équipe tech » en pied de page mène à `/admin`, qui sert uniquement à se connecter (mot de passe partagé, session de 7 jours) puis ramène à la page d'origine. Une fois connecté, chaque page jour affiche sous la date un encadré « Équipe tech » avec « Ajouter une vidéo », ou « Remplacer la vidéo » et « Retirer la vidéo ». Le formulaire s'ouvre dans une fenêtre : vidéo, légende, sous-titres facultatifs. La vidéo part directement sur Cloudinary et la durée est calculée toute seule. Le site enregistre ensuite la journée dans `data/journees.json` par un commit sur GitHub, et Vercel republie en une minute environ.
+Le lien « Équipe tech » en pied de page mène à `/admin`, qui sert uniquement à se connecter (mot de passe partagé, session de 7 jours) puis ramène à la page d'origine. Une fois connecté, chaque page jour affiche sous la date un encadré « Équipe tech » avec « Ajouter une vidéo », ou « Remplacer la vidéo » et « Retirer la vidéo ». Le formulaire s'ouvre dans une fenêtre : vidéo, légende. La vidéo part directement sur Cloudinary et la durée est calculée toute seule. Le site enregistre ensuite la journée dans `data/journees.json` par un commit sur GitHub, et Vercel republie en une minute environ.
 
 Variables d'environnement à régler dans Vercel (Settings → Environment Variables) :
 

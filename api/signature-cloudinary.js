@@ -11,13 +11,12 @@ export function signatureCloudinary(params, secret) {
 
 export const POST = route(async (requete) => {
   const corps = await lireJson(requete);
-  const type = corps?.type;
-  if (type !== 'video' && type !== 'raw') return erreur('Type de fichier inconnu.');
+  if (corps?.type !== 'video') return erreur('Type de fichier inconnu.');
   const nuage = variable('CLOUDINARY_CLOUD_NAME');
   const timestamp = Math.floor(Date.now() / 1000);
   const params = { folder: DOSSIER, timestamp };
   return reponse({
-    uploadUrl: `https://api.cloudinary.com/v1_1/${nuage}/${type}/upload`,
+    uploadUrl: `https://api.cloudinary.com/v1_1/${nuage}/video/upload`,
     apiKey: variable('CLOUDINARY_API_KEY'),
     folder: DOSSIER,
     timestamp,

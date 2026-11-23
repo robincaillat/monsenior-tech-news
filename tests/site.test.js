@@ -161,7 +161,6 @@ test("8. la page d'un jour sans vidéo n'a aucun bloc vidéo ; celle avec vidéo
   await ouvrir('/jour/2026-11-20');
   const video = page.locator('[data-video]');
   assert.match(await video.locator('figcaption').innerText(), /Démo : les témoignages.*1:20/);
-  assert.equal(await video.locator('track[kind="subtitles"]').getAttribute('src'), 'https://exemple.test/demo.vtt');
 });
 
 test('9. jour précédent depuis le 19/11 mène au 13/11 (les jours absents sont sautés)', async () => {

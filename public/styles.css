@@ -158,7 +158,6 @@ h1 {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px;
   font-size: 14px; color: var(--discret); font-variant-numeric: tabular-nums;
 }
-.video__st { display: inline-flex; align-items: center; gap: 6px; }
 
 .groupe { display: flex; flex-direction: column; gap: 16px; }
 .groupe__titre { margin: 0; display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; }
