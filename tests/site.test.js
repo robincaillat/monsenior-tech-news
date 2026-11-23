@@ -180,9 +180,10 @@ test('10. jour suivant est désactivé sur la journée la plus récente', async 
   assert.equal(await page.getByRole('link', { name: /Jour précédent : jeudi 19 novembre/ }).count(), 1);
 });
 
-test("10 bis. retour à l'accueil et lien « Une question ? »", async () => {
+test("10 bis. retour à l'accueil, liens « Une question ? » et « Équipe tech »", async () => {
   await ouvrir('/jour/2026-11-20');
   assert.equal(await page.getByRole('link', { name: 'Une question ?' }).getAttribute('href'), 'mailto:exemple@exemple.test');
+  assert.equal(await page.getByRole('link', { name: 'Équipe tech' }).getAttribute('href'), '/admin');
   await page.getByRole('link', { name: 'Tous les jours' }).click();
   await page.waitForURL(site.base + '/');
   assert.equal(await page.locator('h1').innerText(), 'Quoi de neuf');

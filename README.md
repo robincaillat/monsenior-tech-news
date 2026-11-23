@@ -39,6 +39,25 @@ Règles :
 
 Le lien « Une question ? » du pied de page se règle dans `data/site.json` (`"contact": "mailto:…"` ou une URL Slack).
 
+## Ajouter une vidéo (espace Équipe tech)
+
+Le lien « Équipe tech » en pied de page mène à `/admin`. Après connexion par mot de passe, on choisit la journée, la vidéo et une légende, puis « Publier la vidéo ». La vidéo part directement sur Cloudinary et la durée est calculée toute seule. Le site enregistre ensuite la journée dans `data/journees.json` par un commit sur GitHub, et Vercel republie en une minute environ.
+
+Variables d'environnement à régler dans Vercel (Settings → Environment Variables) :
+
+| Variable | Valeur |
+| --- | --- |
+| `ADMIN_PASSWORD` | Mot de passe partagé de l'équipe tech. Le changer déconnecte tout le monde. |
+| `SESSION_SECRET` | Longue chaîne aléatoire, par exemple `openssl rand -hex 32`. |
+| `CLOUDINARY_CLOUD_NAME` | Nom du compte Cloudinary (tableau de bord Cloudinary). |
+| `CLOUDINARY_API_KEY` | Clé API Cloudinary. |
+| `CLOUDINARY_API_SECRET` | Secret API Cloudinary. Il ne quitte jamais le serveur. |
+| `GITHUB_TOKEN` | Jeton GitHub « fine-grained » limité à ce dépôt, permission Contents en lecture et écriture. |
+| `GITHUB_REPO` | `robincaillat/monsenior-tech-news` |
+| `GITHUB_BRANCH` | Facultatif, `main` par défaut. |
+
+Pour tester l'espace en local : `npx vercel dev` (les routes `/api` ne tournent pas avec un simple serveur de fichiers).
+
 ## Développer
 
 ```bash
@@ -57,7 +76,8 @@ Pour les tests sur une nouvelle machine : `npx playwright install chromium`.
 | `src/journees.js` | Tri, jour précédent / suivant, regroupement par produit, dates en français |
 | `src/rendu.js` | Gabarits HTML : accueil, page jour, 404 |
 | `src/build.js` | Écrit `dist/index.html` et `dist/jour/AAAA-MM-JJ.html` |
-| `public/` | CSS et script du filtre produit, copiés tels quels |
+| `public/` | CSS, logo, script du filtre et de l'espace Équipe tech, copiés tels quels |
+| `api/` | Fonctions Vercel : connexion, signature Cloudinary, ajout et retrait de vidéo |
 | `tests/` | Tests de bout en bout sur un jeu de données d'exemple |
 
 Adresses : `/` pour l'accueil, `/?produit=pulse` pour une vue filtrée, `/jour/2026-11-20` pour une journée.

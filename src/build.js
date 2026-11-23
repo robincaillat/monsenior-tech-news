@@ -5,7 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { chargerJournees, DonneesInvalides } from './donnees.js';
-import { pageAccueil, pageJour, page404 } from './rendu.js';
+import { pageAccueil, pageJour, page404, pageAdmin } from './rendu.js';
 
 const racine = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -16,6 +16,7 @@ export async function construire({ donnees, sortie, site }) {
   await cp(join(racine, 'public'), sortie, { recursive: true });
   await writeFile(join(sortie, 'index.html'), pageAccueil(journees, site));
   await writeFile(join(sortie, '404.html'), page404(site));
+  await writeFile(join(sortie, 'admin.html'), pageAdmin(journees, site));
   for (const j of journees) {
     await writeFile(join(sortie, 'jour', `${j.date}.html`), pageJour(journees, j.date, site));
   }

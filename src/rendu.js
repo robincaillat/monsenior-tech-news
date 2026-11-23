@@ -7,6 +7,14 @@ import {
 
 const NOM_SITE = 'Quoi de neuf MonSenior';
 
+// Image d'aperçu générée par Cloudinary à partir de la vidéo (1re seconde, 16:9).
+export function apercu(url) {
+  if (!/^https:\/\/res\.cloudinary\.com\/[^/]+\/video\/upload\//.test(url)) return null;
+  return url
+    .replace(/\/video\/upload\/(q_auto\/)?/, '/video/upload/so_1,w_960,ar_16:9,c_fill,q_auto/')
+    .replace(/\.[a-z0-9]+$/i, '.jpg');
+}
+
 export function esc(valeur) {
   return String(valeur)
     .replaceAll('&', '&amp;')
@@ -25,14 +33,14 @@ const ICONES = {
 
 // ---------- Mise en page commune ----------
 
-function page({ titre, description, contenu, scripts = '', large = false, site }) {
+function page({ titre, description, contenu, scripts = '', large = false, site, robots = '' }) {
   return `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(titre)}</title>
-<meta name="description" content="${esc(description)}">
+${robots ? `<meta name="robots" content="${robots}">\n` : ''}<meta name="description" content="${esc(description)}">
 <meta property="og:title" content="${esc(titre)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:site_name" content="${NOM_SITE}">
@@ -65,7 +73,7 @@ function piedDePage(site) {
   const contact = site?.contact
     ? `<a href="${esc(site.contact)}" class="lien-44 focus">Une question ?</a>`
     : `<span class="lien-44">Une question ? Contactez l'équipe produit.</span>`;
-  return `<footer class="pied">${contact}</footer>`;
+  return `<footer class="pied">${contact}<a href="/admin" class="lien-44 lien-discret focus">Équipe tech</a></footer>`;
 }
 
 function etiquetteProduit(produit, attributs = '') {
@@ -107,7 +115,7 @@ ${triees.map(carteJour).join('\n')}
 
 function carteJour(j) {
   const miniature = j.video
-    ? `<div class="miniature" data-miniature>
+    ? `<div class="miniature" data-miniature>${apercu(j.video.url) ? `<img src="${esc(apercu(j.video.url))}" alt="" loading="lazy" class="miniature__image">` : ''}
           <span class="miniature__bouton" aria-hidden="true">${ICONES.lecture}</span>
           <span class="miniature__duree">Vidéo · ${esc(j.video.duree)}</span>
         </div>`
@@ -201,7 +209,7 @@ function lecteurVideo(v) {
     ? `<span class="video__st">${ICONES.sousTitres}Sous-titres</span>`
     : '';
   return `<figure class="video" data-video>
-    <video controls preload="metadata" src="${esc(v.url)}" aria-label="${esc(v.legende)}">${piste}</video>
+    <video controls preload="metadata" crossorigin="anonymous" src="${esc(v.url)}"${apercu(v.url) ? ` poster="${esc(apercu(v.url))}"` : ''} aria-label="${esc(v.legende)}">${piste}</video>
     <figcaption><span>${esc(v.legende)} · ${esc(v.duree)}</span>${mention}</figcaption>
   </figure>`;
 }
@@ -216,5 +224,66 @@ export function page404(site) {
   <p>Cette journée n'existe pas ou n'a pas encore été publiée.</p>
   <p><a href="/" class="lien-44 focus">Voir tous les jours</a></p>`,
     site,
+  });
+}
+
+// ---------- Équipe tech ----------
+
+export function pageAdmin(journees, site) {
+  const triees = trierRecentes(journees);
+  const options = triees.map((j) =>
+    `<option value="${j.date}">${esc(dateLongue(j.date))}${j.video ? ' (a déjà une vidéo)' : ''}</option>`).join('\n          ');
+  const avecVideo = triees.filter((j) => j.video);
+  const liste = avecVideo.length
+    ? `<ul class="admin-liste">${avecVideo.map((j) => `
+        <li><span><strong>${esc(dateLongue(j.date))}</strong> · ${esc(j.video.legende)} · ${esc(j.video.duree)}</span>
+          <button type="button" class="bouton bouton--secondaire focus" data-retirer="${j.date}">Retirer</button></li>`).join('')}
+      </ul>`
+    : '<p class="discret">Aucune journée n\'a de vidéo pour le moment.</p>';
+
+  const contenu = `<h1>Équipe tech</h1>
+  <noscript><p>Cette page a besoin de JavaScript.</p></noscript>
+  <p class="admin-statut" data-statut role="status" hidden></p>
+
+  <form class="admin-carte" data-connexion hidden>
+    <h2>Connexion</h2>
+    <label for="mdp">Mot de passe</label>
+    <input id="mdp" name="mdp" type="password" autocomplete="current-password" required>
+    <button type="submit" class="bouton focus">Se connecter</button>
+  </form>
+
+  <div class="admin-panneau" data-panneau hidden>
+    <form class="admin-carte" data-ajout>
+      <h2>Ajouter une vidéo à une journée</h2>
+      <label for="jour">Journée</label>
+      <select id="jour" name="jour" required>
+          ${options}
+      </select>
+      <label for="fichier">Vidéo (MP4 conseillé, 100 Mo max.)</label>
+      <input id="fichier" name="fichier" type="file" accept="video/*" required>
+      <label for="legende">Légende</label>
+      <input id="legende" name="legende" type="text" required placeholder="Démo : les témoignages sur la page d'entrée">
+      <label for="vtt">Sous-titres (fichier .vtt, facultatif)</label>
+      <input id="vtt" name="vtt" type="file" accept=".vtt,text/vtt">
+      <progress data-progression max="1" value="0" hidden></progress>
+      <button type="submit" class="bouton focus">Publier la vidéo</button>
+      <p class="discret">Le site se met à jour environ une minute après la publication. Une vidéo déjà présente sur la journée est remplacée.</p>
+    </form>
+
+    <section class="admin-carte">
+      <h2>Vidéos en ligne</h2>
+      ${liste}
+    </section>
+
+    <button type="button" class="bouton bouton--secondaire focus" data-deconnexion>Se déconnecter</button>
+  </div>`;
+
+  return page({
+    titre: `Équipe tech · ${NOM_SITE}`,
+    description: 'Espace de publication de l\'équipe tech.',
+    contenu,
+    site,
+    robots: 'noindex',
+    scripts: '<script src="/admin.js" defer></script>',
   });
 }
