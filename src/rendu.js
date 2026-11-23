@@ -102,7 +102,7 @@ export function pageAccueil(journees, site) {
     </div>
   </div>
   <ul class="grille" aria-label="Journées">
-${triees.map(carteJour).join('\n')}
+${triees.map((j, i) => carteJour(j, i === 0)).join('\n')}
   </ul>
   <p class="aucun" data-aucun hidden role="status"></p>`;
 
@@ -116,7 +116,7 @@ ${triees.map(carteJour).join('\n')}
   });
 }
 
-function carteJour(j) {
+function carteJour(j, vedette = false) {
   const miniature = j.video
     ? `<div class="miniature" data-miniature>${apercu(j.video.url) ? `<img src="${esc(apercu(j.video.url))}" alt="" loading="lazy" class="miniature__image">` : ''}
           <span class="miniature__bouton" aria-hidden="true">${ICONES.lecture}</span>
@@ -129,11 +129,12 @@ function carteJour(j) {
   const titres = j.changements
     .map((c) => `<li data-produit="${c.produit}">${esc(c.titre)}</li>`)
     .join('');
-  return `    <li class="grille__item" data-carte>
+  return `    <li class="grille__item${vedette ? ' grille__item--vedette' : ''}" data-carte>
       <a href="/jour/${j.date}" class="carte focus-carte">
         ${miniature}
         <div class="carte__corps">
           <div class="carte__tete">
+            <span class="carte__vedette">Dernière mise à jour</span>
             <h2 class="carte__date">${esc(dateLongue(j.date))}</h2>
             <span class="etiquettes">${etiquettes}</span>
           </div>

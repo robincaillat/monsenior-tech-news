@@ -237,3 +237,17 @@ test('le lien « Équipe tech » ramène à la journée après connexion', async
   await ouvrir('/jour/2026-11-19');
   assert.equal(await page.getByRole('link', { name: 'Équipe tech' }).getAttribute('href'), '/admin?retour=%2Fjour%2F2026-11-19');
 });
+
+test('la journée la plus récente est en bannière, et la bannière suit le filtre', async () => {
+  await ouvrir('/');
+  const banniere = page.locator('.grille__item--vedette');
+  assert.equal(await banniere.count(), 1);
+  assert.equal(await banniere.locator('h2').innerText(), 'Vendredi 20 novembre');
+  assert.equal(await banniere.getByText('Dernière mise à jour').isVisible(), true);
+  assert.equal(await cartes().first().getByText('Dernière mise à jour').isVisible(), true);
+  assert.equal(await cartes().nth(1).getByText('Dernière mise à jour').isVisible(), false);
+  await page.getByRole('button', { name: 'Pulse' }).click();
+  assert.equal(await banniere.locator('h2').innerText(), 'Jeudi 19 novembre');
+  await page.getByRole('button', { name: 'Tous' }).click();
+  assert.equal(await banniere.locator('h2').innerText(), 'Vendredi 20 novembre');
+});

@@ -128,6 +128,37 @@ h1 {
 .carte__compte { margin-top: auto; padding-top: 4px; font-size: 14px; font-weight: 600; color: var(--lien); }
 .aucun { margin: 0; padding: 24px; background: var(--surface); border: 1px solid var(--bordure); border-radius: 12px; }
 
+/* Bannière : la journée la plus récente (ou la plus récente du filtre actif) */
+.carte__vedette { display: none; }
+.grille__item--vedette { grid-column: 1 / -1; }
+.grille__item--vedette .carte {
+  display: grid; grid-template-columns: minmax(0, 1fr); align-items: stretch;
+  background: linear-gradient(135deg, #0a4c80 0%, #003a65 55%, #002a4a 100%);
+  border-color: transparent; color: #fff;
+}
+.grille__item--vedette .carte:hover { color: #fff; border-color: #40c7ad; box-shadow: 0 10px 30px -12px rgb(0 42 74 / 0.55); }
+.grille__item--vedette .carte__corps { padding: 32px; gap: 16px; }
+.grille__item--vedette .carte__vedette {
+  display: inline-block; align-self: flex-start; margin-bottom: 6px; padding: 3px 10px; border-radius: 9999px;
+  background: rgb(64 199 173 / 0.16); color: #7fe3cf; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.grille__item--vedette .carte__date { font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; }
+.grille__item--vedette .etiquette { color: #fff; }
+.grille__item--vedette .etiquette--mon-espace .etiquette__point { background: hsl(338 80% 72%); }
+.grille__item--vedette .etiquette--pulse .etiquette__point { background: #40c7ad; }
+.grille__item--vedette .carte__titres { font-size: 17px; gap: 8px; }
+.grille__item--vedette .carte__titres li::marker { color: #40c7ad; }
+.grille__item--vedette .carte__compte { color: #7fe3cf; font-size: 15px; }
+.grille__item--vedette .miniature { background: #001f38; }
+@media (min-width: 760px) {
+  .grille__item--vedette .carte:has(.miniature) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); }
+  .grille__item--vedette .miniature { order: 2; aspect-ratio: auto; min-height: 280px; }
+  .grille__item--vedette .carte__corps { padding: 40px; }
+  .grille__item--vedette .carte:not(:has(.miniature)) .carte__titres { columns: 2; column-gap: 40px; display: block; }
+  .grille__item--vedette .carte:not(:has(.miniature)) .carte__titres li { break-inside: avoid; margin-bottom: 8px; }
+}
+
 /* Étiquette produit : point de couleur + nom, jamais la couleur seule */
 .etiquettes { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .etiquette { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; }
@@ -177,6 +208,8 @@ h1 {
   h1 { font-size: 30px; }
   .jour__tete h1 { font-size: 28px; }
   .changement { padding: 20px; }
+  .grille__item--vedette .carte__corps { padding: 24px; }
+  .grille__item--vedette .carte__date { font-size: 26px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

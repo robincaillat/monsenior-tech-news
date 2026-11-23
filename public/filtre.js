@@ -32,6 +32,9 @@
       carte.hidden = n === 0;
       if (n > 0) visibles++;
     });
+    // La première journée visible passe en bannière.
+    var premiere = cartes.filter(function (c) { return !c.hidden; })[0];
+    cartes.forEach(function (c) { c.classList.toggle('grille__item--vedette', c === premiere); });
     aucun.hidden = visibles > 0;
     aucun.textContent = visibles > 0 ? '' : 'Aucun jour ne contient de changement pour ' + NOMS[valeur] + ' pour le moment.';
   }
