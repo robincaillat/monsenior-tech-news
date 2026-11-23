@@ -22,6 +22,9 @@ export function variable(nom) {
   return v;
 }
 
+// Erreur d'un service externe, avec un message destiné à l'équipe tech.
+export class ErreurService extends Error {}
+
 export class ConfigManquante extends Error {
   constructor(nom) { super(`Variable d'environnement manquante : ${nom}`); }
 }
@@ -82,9 +85,10 @@ export function route(gestionnaire, { connexion = true } = {}) {
       if (connexion && !estConnecte(requete)) return erreur('Connexion requise.', 401);
       return await gestionnaire(requete);
     } catch (e) {
-      if (e instanceof ConfigManquante) return erreur(`${e.message}. À régler dans Vercel.`, 500);
+      if (e instanceof ConfigManquante) return erreur(`${e.message}. À régler dans Vercel puis redéployer.`, 500);
+      if (e instanceof ErreurService) return erreur(e.message, 502);
       console.error(e);
-      return erreur('Erreur inattendue côté serveur.', 500);
+      return erreur(`Erreur inattendue côté serveur : ${e.message}`, 500);
     }
   };
 }

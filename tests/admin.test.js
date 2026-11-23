@@ -144,3 +144,22 @@ test('une session expirée ou absente efface le témoin, la déconnexion efface 
   const d = await session.DELETE(requete('DELETE'));
   assert.deepEqual(d.headers.getSetCookie().map((c) => c.split('=')[0]), ['qdn_admin', 'qdn_tech']);
 });
+
+test('un refus de GitHub donne un message qui dit quoi corriger', async () => {
+  const cookie = await seConnecter();
+  const cas = [
+    [{ GET: 404 }, /\(404\).*GITHUB_REPO \(« exemple\/depot »\)/],
+    [{ GET: 401 }, /\(401\).*GITHUB_TOKEN est invalide/],
+    [{ PUT: 403 }, /écriture \(403\).*« Read and write ».*Resource not accessible/],
+  ];
+  for (const [statuts, message] of cas) {
+    globalThis.fetch = async (url, options = {}) => {
+      const methode = options.method ?? 'GET';
+      if (statuts[methode]) return Response.json({ message: 'Resource not accessible by personal access token' }, { status: statuts[methode] });
+      return Response.json({ sha: 'abc', content: Buffer.from(FIXTURE).toString('base64') });
+    };
+    const r = await video.POST(requete('POST', { date: '2026-11-19', url: VIDEO_URL, duree: '0:45', legende: 'Démo' }, cookie));
+    assert.equal(r.status, 502);
+    assert.match((await r.json()).erreur, message);
+  }
+});
