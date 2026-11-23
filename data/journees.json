@@ -1,0 +1,62 @@
+{
+  "journees": [
+    {
+      "date": "2026-11-20",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Trois témoignages d'accueillantes sur la page d'entrée",
+          "ce_qui_change": "En arrivant sur Mon Espace, les candidats voient défiler trois témoignages d'accueillantes familiales.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Les mentions de test ont disparu",
+          "ce_qui_change": "Les textes provisoires laissés pendant les essais ne s'affichent plus.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "changements": [
+        {
+          "produit": "pulse",
+          "titre": "Le résultat d'un appel est bien enregistré",
+          "ce_qui_change": "À compléter.",
+          "pour_qui": "À compléter.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Nouveau choix « Injoignable »",
+          "ce_qui_change": "À compléter.",
+          "pour_qui": "À compléter.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Une question en plus sur l'accompagnement",
+          "ce_qui_change": "À compléter.",
+          "pour_qui": "À compléter.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Le dossier de candidature refait",
+          "ce_qui_change": "À compléter.",
+          "pour_qui": "À compléter.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    }
+  ],
+  "semaines": []
+}

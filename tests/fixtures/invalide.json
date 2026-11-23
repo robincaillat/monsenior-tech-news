@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-11-13",
+    "changements": [
+      {
+        "produit": "mon-espace",
+        "titre": "Le dossier de candidature refait",
+        "ce_qui_change": "Le dossier de candidature a une nouvelle présentation.",
+        "pour_qui": "Les candidats accueillants familiaux.",
+        "pourquoi": "Pour le rendre plus simple à remplir."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-19",
+    "changements": [
+      {
+        "produit": "pulsee",
+        "titre": "Nouveau choix « Injoignable »",
+        "ce_qui_change": "Un choix « Injoignable » apparaît.",
+        "pour_qui": "L'équipe relation candidats.",
+        "pourquoi": "Pour distinguer un candidat injoignable d'un refus."
+      }
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+{
+  "journees": [
+    {
+      "date": "2026-11-13",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Le dossier de candidature refait",
+          "ce_qui_change": "Le dossier de candidature a une nouvelle présentation.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "Pour le rendre plus simple à remplir."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-20",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Trois témoignages d'accueillantes sur la page d'entrée",
+          "ce_qui_change": "En arrivant sur Mon Espace, les candidats voient défiler trois témoignages d'accueillantes familiales.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "Pour rassurer les candidats dès leur arrivée."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Les mentions de test ont disparu",
+          "ce_qui_change": "Les textes provisoires laissés pendant les essais ne s'affichent plus.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "Pour un site propre."
+        }
+      ],
+      "video": {
+        "url": "https://exemple.test/demo.mp4",
+        "legende": "Démo : les témoignages sur la page d'entrée de Mon Espace",
+        "duree": "1:20",
+        "sous_titres": "https://exemple.test/demo.vtt"
+      }
+    },
+    {
+      "date": "2026-11-19",
+      "changements": [
+        {
+          "produit": "pulse",
+          "titre": "Le résultat d'un appel est bien enregistré",
+          "ce_qui_change": "Le résultat choisi après un appel est conservé.",
+          "pour_qui": "L'équipe relation candidats.",
+          "pourquoi": "Pour ne plus ressaisir le résultat."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Nouveau choix « Injoignable »",
+          "ce_qui_change": "Un choix « Injoignable » apparaît dans les résultats d'appel.",
+          "pour_qui": "L'équipe relation candidats.",
+          "pourquoi": "Pour distinguer un candidat injoignable d'un refus."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Une question en plus sur l'accompagnement",
+          "ce_qui_change": "Le formulaire pose une question sur l'accompagnement souhaité.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "Pour mieux préparer le premier appel."
+        }
+      ]
+    }
+  ],
+  "semaines": []
+}
