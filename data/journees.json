@@ -6,16 +6,16 @@
         {
           "produit": "mon-espace",
           "titre": "Trois témoignages d'accueillantes sur la page d'entrée",
-          "ce_qui_change": "En arrivant sur Mon Espace, les candidats voient défiler trois témoignages d'accueillantes familiales.",
-          "pour_qui": "Les candidats accueillants familiaux.",
-          "pourquoi": "À compléter."
+          "ce_qui_change": "Trois témoignages d'accueillantes familiales défilent lentement sur la page d'entrée, 30 secondes chacun.",
+          "pour_qui": "Les personnes qui découvrent Mon Espace.",
+          "pourquoi": "Rassurer les nouveaux visiteurs."
         },
         {
           "produit": "mon-espace",
           "titre": "Les mentions de test ont disparu",
-          "ce_qui_change": "Les textes provisoires laissés pendant les essais ne s'affichent plus.",
-          "pour_qui": "Les candidats accueillants familiaux.",
-          "pourquoi": "À compléter."
+          "ce_qui_change": "Les mentions de test et le badge de débogage ne s'affichent plus.",
+          "pour_qui": "Tous les visiteurs de Mon Espace.",
+          "pourquoi": "L'espace peut maintenant être montré en public."
         }
       ]
     },
@@ -25,22 +25,93 @@
         {
           "produit": "pulse",
           "titre": "Le résultat d'un appel est bien enregistré",
-          "ce_qui_change": "À compléter.",
-          "pour_qui": "À compléter.",
+          "ce_qui_change": "Le résultat d'un appel est désormais envoyé pour de vrai au système, au lieu d'un simple essai.",
+          "pour_qui": "Les équipes qui appellent les candidats.",
           "pourquoi": "À compléter."
         },
         {
           "produit": "pulse",
           "titre": "Nouveau choix « Injoignable »",
-          "ce_qui_change": "À compléter.",
-          "pour_qui": "À compléter.",
+          "ce_qui_change": "Dans la vue « À relancer », le choix « Injoignable » archive le contact sans relance. La date de relance choisie s'affiche dans le tiroir du lead.",
+          "pour_qui": "Les équipes qui appellent les candidats.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Un lead à relancer redevient disponible pour tous",
+          "ce_qui_change": "Un lead qui passe en « À relancer » redevient disponible pour toute l'équipe.",
+          "pour_qui": "Les équipes qui appellent les candidats.",
           "pourquoi": "À compléter."
         },
         {
           "produit": "mon-espace",
           "titre": "Une question en plus sur l'accompagnement",
-          "ce_qui_change": "À compléter.",
-          "pour_qui": "À compléter.",
+          "ce_qui_change": "Nouvelle question obligatoire sur l'accompagnement : le dossier compte maintenant 11 étapes obligatoires au lieu de 10. Pulse reçoit aussi la réponse.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Le bouton « Modifier » du récapitulatif est retiré",
+          "ce_qui_change": "Le bouton « Modifier » n'apparaît plus sur le récapitulatif du formulaire accueillant.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Textes du dossier revus",
+          "ce_qui_change": "Les textes du dossier sont revus : public souhaité, emménagement en Maison MonSenior, motivation.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Plus d'adresses e-mail acceptées dans les contrats",
+          "ce_qui_change": "Les adresses e-mail en .eu, des pays de l'UE, .ch et .uk sont acceptées dans les contrats.",
+          "pour_qui": "Les équipes qui préparent les contrats.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Mesure d'audience avec l'accord du visiteur",
+          "ce_qui_change": "Google Analytics suit les clics sur les boutons et les prospects générés, uniquement après accord du visiteur.",
+          "pour_qui": "Les équipes qui suivent l'audience de Mon Espace.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "CV trop lourd : un message clair",
+          "ce_qui_change": "Un CV de plus de 10 Mo est refusé avec un message clair.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-16",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Mon Espace change d'apparence",
+          "ce_qui_change": "Refonte visuelle : en-tête, page Découvrir avec la vidéo, cartes du dossier, carte CV. La déconnexion se trouve désormais dans « Mon profil ».",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Trois files d'appel et un premier écran de résultat",
+          "ce_qui_change": "Trois files d'appel apparaissent : une avec de vraies données, deux en maquette. Un premier écran de résultat d'appel est disponible, en essai.",
+          "pour_qui": "Les équipes qui appellent les candidats.",
           "pourquoi": "À compléter."
         }
       ]
@@ -51,8 +122,67 @@
         {
           "produit": "mon-espace",
           "titre": "Le dossier de candidature refait",
-          "ce_qui_change": "À compléter.",
-          "pour_qui": "À compléter.",
+          "ce_qui_change": "Une question par écran, bouton « Valider ma réponse » fixe en plein écran sur mobile, sections repliables avec les questions à traiter en premier, et « Une question ? » en tiroir.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Un tiroir du lead plus large et modifiable",
+          "ce_qui_change": "Le tiroir du lead s'élargit et permet de modifier le dossier d'un lead qui nous est attribué, y compris les âges des enfants.",
+          "pour_qui": "Les équipes qui appellent les candidats.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "« Leads récents » relié aux vraies données",
+          "ce_qui_change": "Le bloc « Leads récents », ajouté le 12/11, affiche maintenant les vraies données.",
+          "pour_qui": "Les équipes qui utilisent Pulse.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-12",
+      "changements": [
+        {
+          "produit": "pulse",
+          "titre": "Filtrer la file d'appel par propriétaire",
+          "ce_qui_change": "Livré entre le 9 et le 12 novembre. Filtre par propriétaire dans la file d'appel : Tous, Moi, Non attribué, ou un collègue.",
+          "pour_qui": "Les équipes qui appellent les candidats.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Nouvelle fiche accueillant",
+          "ce_qui_change": "Livré entre le 9 et le 12 novembre. La fiche accueillant montre la complétude du dossier et permet de le modifier sur place.",
+          "pour_qui": "Les équipes qui suivent les candidats accueillants.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Nouvelle fiche bénéficiaire",
+          "ce_qui_change": "Livré entre le 9 et le 12 novembre. La fiche bénéficiaire contient l'estimation tarifaire et le contrat.",
+          "pour_qui": "Les équipes qui préparent les contrats.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "pulse",
+          "titre": "Dashboard relié aux vraies données",
+          "ce_qui_change": "Livré entre le 9 et le 12 novembre. Neuf indicateurs du Dashboard sont reliés aux vraies données. L'onglet « Parcours AF » existe, en maquette.",
+          "pour_qui": "Les équipes qui consultent le Dashboard.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "changements": [
+        {
+          "produit": "pulse",
+          "titre": "« Pilotage » devient « Dashboard »",
+          "ce_qui_change": "Dans la navigation d'administration, « Pilotage » s'appelle maintenant « Dashboard ».",
+          "pour_qui": "Les administrateurs de Pulse.",
           "pourquoi": "À compléter."
         }
       ]
