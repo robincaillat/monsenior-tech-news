@@ -63,6 +63,7 @@ h1 {
 .discret { margin: 0; color: var(--discret); }
 
 /* En-tête et pied */
+.logo img { display: block; height: 27px; width: auto; }
 .en-tete { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .logo {
   display: inline-flex; align-items: center; min-height: 44px;

@@ -57,7 +57,7 @@ ${scripts}
 
 function enTete() {
   return `<header class="en-tete">
-  <a href="/" class="logo focus" aria-label="MonSenior, accueil de Quoi de neuf">MonSenior</a>
+  <a href="/" class="logo focus"><img src="/logo.svg" alt="MonSenior, accueil de Quoi de neuf" width="140" height="27"></a>
 </header>`;
 }
 
