@@ -41,7 +41,7 @@ Le lien « Une question ? » du pied de page se règle dans `data/site.json` (`"
 
 ## Ajouter une vidéo (espace Équipe tech)
 
-Le lien « Équipe tech » en pied de page mène à `/admin`. Après connexion par mot de passe, on choisit la journée, la vidéo et une légende, puis « Publier la vidéo ». La vidéo part directement sur Cloudinary et la durée est calculée toute seule. Le site enregistre ensuite la journée dans `data/journees.json` par un commit sur GitHub, et Vercel republie en une minute environ.
+Le lien « Équipe tech » en pied de page mène à `/admin`, qui sert uniquement à se connecter (mot de passe partagé, session de 7 jours) puis ramène à la page d'origine. Une fois connecté, chaque page jour affiche sous la date un encadré « Équipe tech » avec « Ajouter une vidéo », ou « Remplacer la vidéo » et « Retirer la vidéo ». Le formulaire s'ouvre dans une fenêtre : vidéo, légende, sous-titres facultatifs. La vidéo part directement sur Cloudinary et la durée est calculée toute seule. Le site enregistre ensuite la journée dans `data/journees.json` par un commit sur GitHub, et Vercel republie en une minute environ.
 
 Variables d'environnement à régler dans Vercel (Settings → Environment Variables) :
 

@@ -63,7 +63,12 @@ test('un mauvais mot de passe est refusé sans session', async () => {
 });
 
 test('le bon mot de passe ouvre une session reconnue', async () => {
-  const cookie = await seConnecter();
+  const r0 = await session.POST(requete('POST', { motDePasse: 'bon-mot-de-passe' }));
+  const poses = r0.headers.getSetCookie();
+  assert.match(poses[0], /^qdn_admin=\d+\.[\w-]+; .*HttpOnly/);
+  assert.match(poses[1], /^qdn_tech=1; /);
+  assert.doesNotMatch(poses[1], /HttpOnly/);
+  const cookie = poses[0].split(';')[0];
   const r = await session.GET(requete('GET', null, cookie));
   assert.deepEqual(await r.json(), { connecte: true });
   const sans = await session.GET(requete('GET'));
@@ -131,4 +136,11 @@ test('une requête qui n’est pas en JSON est refusée (protection contre les f
   }));
   assert.equal(r.status, 400);
   assert.equal(ecritures.length, 0);
+});
+
+test('une session expirée ou absente efface le témoin, la déconnexion efface les deux cookies', async () => {
+  const r = await session.GET(requete('GET', null, 'qdn_tech=1'));
+  assert.match(r.headers.getSetCookie()[0], /^qdn_tech=; .*Max-Age=0/);
+  const d = await session.DELETE(requete('DELETE'));
+  assert.deepEqual(d.headers.getSetCookie().map((c) => c.split('=')[0]), ['qdn_admin', 'qdn_tech']);
 });

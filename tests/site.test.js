@@ -135,7 +135,7 @@ test('5. un filtre sans résultat affiche le message « aucun jour »', async ()
 test('6. la page jour groupe les changements par produit, Mon Espace d’abord', async () => {
   await ouvrir('/jour/2026-11-19');
   assert.equal(await page.locator('h1').innerText(), 'Jeudi 19 novembre');
-  assert.deepEqual(await page.locator('main h2').allInnerTexts(), [
+  assert.deepEqual(await page.locator('main h2:visible').allInnerTexts(), [
     'Mon Espace · 1 changement',
     'Pulse · 2 changements',
   ]);
@@ -183,7 +183,7 @@ test('10. jour suivant est désactivé sur la journée la plus récente', async 
 test("10 bis. retour à l'accueil, liens « Une question ? » et « Équipe tech »", async () => {
   await ouvrir('/jour/2026-11-20');
   assert.equal(await page.getByRole('link', { name: 'Une question ?' }).getAttribute('href'), 'mailto:exemple@exemple.test');
-  assert.equal(await page.getByRole('link', { name: 'Équipe tech' }).getAttribute('href'), '/admin');
+  assert.equal(await page.getByRole('link', { name: 'Équipe tech' }).getAttribute('href'), '/admin?retour=%2Fjour%2F2026-11-20');
   await page.getByRole('link', { name: 'Tous les jours' }).click();
   await page.waitForURL(site.base + '/');
   assert.equal(await page.locator('h1').innerText(), 'Quoi de neuf');
@@ -205,4 +205,36 @@ test('11 bis. une date manquante bloque aussi la construction', async () => {
     () => validerJournees([{ changements: [] }]),
     (e) => e instanceof DonneesInvalides && /Entrée n°1, champ « date » : manquant/.test(e.message),
   );
+});
+
+test("les outils de l'équipe tech sont invisibles pour les visiteurs", async () => {
+  await ouvrir('/jour/2026-11-19');
+  assert.equal(await page.getByRole('button', { name: 'Ajouter une vidéo' }).isVisible(), false);
+  assert.equal(await page.locator('[data-outils-tech]').isVisible(), false);
+});
+
+test("connecté, l'équipe tech ajoute une vidéo depuis la page du jour", async () => {
+  page = await navigateur.newPage();
+  await page.context().addCookies([{ name: 'qdn_tech', value: '1', url: site.base }]);
+  await page.goto(site.base + '/jour/2026-11-19');
+  await page.getByRole('button', { name: 'Ajouter une vidéo' }).click();
+  const dialogue = page.getByRole('dialog', { name: 'Ajouter une vidéo · Jeudi 19 novembre' });
+  assert.equal(await dialogue.isVisible(), true);
+  assert.equal(await dialogue.getByLabel('Légende').inputValue(), '');
+  await dialogue.getByRole('button', { name: 'Annuler' }).click();
+  assert.equal(await dialogue.isVisible(), false);
+  assert.equal(await page.getByRole('button', { name: 'Retirer la vidéo' }).count(), 0);
+
+  await page.goto(site.base + '/jour/2026-11-20');
+  await page.getByRole('button', { name: 'Remplacer la vidéo' }).click();
+  const remplacer = page.getByRole('dialog', { name: 'Remplacer la vidéo · Vendredi 20 novembre' });
+  assert.equal(await remplacer.getByLabel('Légende').inputValue(), "Démo : les témoignages sur la page d'entrée de Mon Espace");
+  await remplacer.getByRole('button', { name: 'Annuler' }).click();
+  assert.equal(await page.getByRole('button', { name: 'Retirer la vidéo' }).isVisible(), true);
+  await page.context().clearCookies();
+});
+
+test('le lien « Équipe tech » ramène à la journée après connexion', async () => {
+  await ouvrir('/jour/2026-11-19');
+  assert.equal(await page.getByRole('link', { name: 'Équipe tech' }).getAttribute('href'), '/admin?retour=%2Fjour%2F2026-11-19');
 });

@@ -5,10 +5,11 @@ const COOKIE = 'qdn_admin';
 const DUREE_SESSION = 7 * 24 * 3600; // 7 jours
 
 export function reponse(donnees, statut = 200, entetes = {}) {
-  return new Response(JSON.stringify(donnees), {
-    status: statut,
-    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...entetes },
-  });
+  const h = new Headers({ 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' });
+  for (const [cle, valeur] of Object.entries(entetes)) {
+    for (const v of [].concat(valeur)) h.append(cle, v);
+  }
+  return new Response(JSON.stringify(donnees), { status: statut, headers: h });
 }
 
 export function erreur(message, statut = 400) {
@@ -48,6 +49,16 @@ export function cookieSession(maintenant = Date.now()) {
 
 export function cookieEfface() {
   return `${COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`;
+}
+
+// Témoin lisible par le navigateur : il sert seulement à afficher les boutons de l'équipe tech.
+// Il ne donne aucun droit ; chaque action revérifie le cookie de session signé.
+export const TEMOIN = 'qdn_tech';
+export function cookieTemoin() {
+  return `${TEMOIN}=1; Path=/; Secure; SameSite=Strict; Max-Age=${DUREE_SESSION}`;
+}
+export function temoinEfface() {
+  return `${TEMOIN}=; Path=/; Secure; SameSite=Strict; Max-Age=0`;
 }
 
 export function estConnecte(requete) {

@@ -33,7 +33,7 @@ const ICONES = {
 
 // ---------- Mise en page commune ----------
 
-function page({ titre, description, contenu, scripts = '', large = false, site, robots = '' }) {
+function page({ titre, description, contenu, scripts = '', large = false, site, robots = '', chemin = '/' }) {
   return `<!doctype html>
 <html lang="fr">
 <head>
@@ -59,7 +59,7 @@ ${enTete()}
 <main id="contenu">
 ${contenu}
 </main>
-${piedDePage(site)}
+${piedDePage(site, chemin)}
 </div>
 ${scripts}
 </body>
@@ -73,11 +73,11 @@ function enTete() {
 </header>`;
 }
 
-function piedDePage(site) {
+function piedDePage(site, chemin = '/') {
   const contact = site?.contact
     ? `<a href="${esc(site.contact)}" class="lien-44 focus">Une question ?</a>`
     : `<span class="lien-44">Une question ? Contactez l'équipe produit.</span>`;
-  return `<footer class="pied">${contact}<a href="/admin" class="lien-44 lien-discret focus">Équipe tech</a></footer>`;
+  return `<footer class="pied">${contact}<a href="/admin?retour=${encodeURIComponent(chemin)}" class="lien-44 lien-discret focus">Équipe tech</a></footer>`;
 }
 
 function etiquetteProduit(produit, attributs = '') {
@@ -168,6 +168,7 @@ export function pageJour(journees, date, site) {
     <h1>${esc(titreJour)}</h1>
     ${nav}
   </div>
+  ${outilsTech(j)}
   ${j.video ? lecteurVideo(j.video) : ''}
   ${groupes}`;
 
@@ -176,6 +177,8 @@ export function pageJour(journees, date, site) {
     description: j.changements.map((c) => c.titre).join(' · '),
     contenu,
     site,
+    chemin: `/jour/${j.date}`,
+    scripts: '<script src="/tech.js" defer></script>',
   });
 }
 
@@ -233,18 +236,36 @@ export function page404(site) {
 
 // ---------- Équipe tech ----------
 
-export function pageAdmin(journees, site) {
-  const triees = trierRecentes(journees);
-  const options = triees.map((j) =>
-    `<option value="${j.date}">${esc(dateLongue(j.date))}${j.video ? ' (a déjà une vidéo)' : ''}</option>`).join('\n          ');
-  const avecVideo = triees.filter((j) => j.video);
-  const liste = avecVideo.length
-    ? `<ul class="admin-liste">${avecVideo.map((j) => `
-        <li><span><strong>${esc(dateLongue(j.date))}</strong> · ${esc(j.video.legende)} · ${esc(j.video.duree)}</span>
-          <button type="button" class="bouton bouton--secondaire focus" data-retirer="${j.date}">Retirer</button></li>`).join('')}
-      </ul>`
-    : '<p class="discret">Aucune journée n\'a de vidéo pour le moment.</p>';
+// Barre d'outils de l'équipe tech sur la page jour. Masquée pour les visiteurs ;
+// tech.js l'affiche si le cookie de connexion est présent. Le serveur revérifie la session.
+function outilsTech(j) {
+  const titre = j.video ? 'Remplacer la vidéo' : 'Ajouter une vidéo';
+  return `<div class="outils-tech" data-outils-tech data-date="${j.date}" hidden>
+    <span class="outils-tech__label">Équipe tech</span>
+    <button type="button" class="bouton focus" data-ouvrir>${titre}</button>
+    ${j.video ? '<button type="button" class="bouton bouton--secondaire focus" data-retirer>Retirer la vidéo</button>' : ''}
+    <p class="outils-tech__statut" data-statut role="status" hidden></p>
+    <dialog class="dialogue" data-dialogue aria-labelledby="dialogue-titre">
+      <form class="admin-carte" data-ajout method="dialog">
+        <h2 id="dialogue-titre">${titre} · ${esc(dateLongue(j.date))}</h2>
+        <label for="fichier">Vidéo (MP4 conseillé, 100 Mo max.)</label>
+        <input id="fichier" name="fichier" type="file" accept="video/*" required>
+        <label for="legende">Légende</label>
+        <input id="legende" name="legende" type="text" required value="${j.video ? esc(j.video.legende) : ''}" placeholder="Démo : ${esc(j.changements[0].titre)}">
+        <label for="vtt">Sous-titres (fichier .vtt, facultatif)</label>
+        <input id="vtt" name="vtt" type="file" accept=".vtt,text/vtt">
+        <progress data-progression max="1" value="0" hidden></progress>
+        <p class="admin-erreur" data-erreur role="alert" hidden></p>
+        <div class="dialogue__actions">
+          <button type="submit" class="bouton focus">Publier la vidéo</button>
+          <button type="button" class="bouton bouton--secondaire focus" data-fermer>Annuler</button>
+        </div>
+      </form>
+    </dialog>
+  </div>`;
+}
 
+export function pageAdmin(journees, site) {
   const contenu = `<h1>Équipe tech</h1>
   <noscript><p>Cette page a besoin de JavaScript.</p></noscript>
   <p class="admin-statut" data-statut role="status" hidden></p>
@@ -256,35 +277,18 @@ export function pageAdmin(journees, site) {
     <button type="submit" class="bouton focus">Se connecter</button>
   </form>
 
-  <div class="admin-panneau" data-panneau hidden>
-    <form class="admin-carte" data-ajout>
-      <h2>Ajouter une vidéo à une journée</h2>
-      <label for="jour">Journée</label>
-      <select id="jour" name="jour" required>
-          ${options}
-      </select>
-      <label for="fichier">Vidéo (MP4 conseillé, 100 Mo max.)</label>
-      <input id="fichier" name="fichier" type="file" accept="video/*" required>
-      <label for="legende">Légende</label>
-      <input id="legende" name="legende" type="text" required placeholder="Démo : les témoignages sur la page d'entrée">
-      <label for="vtt">Sous-titres (fichier .vtt, facultatif)</label>
-      <input id="vtt" name="vtt" type="file" accept=".vtt,text/vtt">
-      <progress data-progression max="1" value="0" hidden></progress>
-      <button type="submit" class="bouton focus">Publier la vidéo</button>
-      <p class="discret">Le site se met à jour environ une minute après la publication. Une vidéo déjà présente sur la journée est remplacée.</p>
-    </form>
-
-    <section class="admin-carte">
-      <h2>Vidéos en ligne</h2>
-      ${liste}
-    </section>
-
-    <button type="button" class="bouton bouton--secondaire focus" data-deconnexion>Se déconnecter</button>
+  <div class="admin-carte" data-panneau hidden>
+    <h2>Tu es connecté</h2>
+    <p class="discret">Ouvre une journée : un bouton « Ajouter une vidéo » apparaît sous la date.</p>
+    <div class="dialogue__actions">
+      <a href="/" class="bouton focus" data-retour>Voir les journées</a>
+      <button type="button" class="bouton bouton--secondaire focus" data-deconnexion>Se déconnecter</button>
+    </div>
   </div>`;
 
   return page({
     titre: `Équipe tech · ${NOM_SITE}`,
-    description: 'Espace de publication de l\'équipe tech.',
+    description: 'Connexion de l\'équipe tech.',
     contenu,
     site,
     robots: 'noindex',

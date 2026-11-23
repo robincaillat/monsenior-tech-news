@@ -193,6 +193,20 @@ h1 {
 .miniature__bouton, .miniature__duree { z-index: 1; }
 
 /* Équipe tech */
+.outils-tech {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 12px 16px;
+  border: 1px dashed var(--bordure-forte); border-radius: 12px; background: var(--surface);
+}
+.outils-tech[hidden] { display: none !important; }
+.outils-tech__label { font-size: 13px; font-weight: 700; color: var(--discret); text-transform: uppercase; letter-spacing: 0.04em; margin-right: auto; }
+.outils-tech__statut { flex-basis: 100%; margin: 0; font-size: 14px; }
+.dialogue { width: min(560px, calc(100vw - 32px)); padding: 0; border: none; border-radius: 12px; background: transparent; }
+.dialogue::backdrop { background: rgb(0 20 40 / 0.45); }
+.dialogue__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.dialogue__actions .bouton { margin: 0; }
+a.bouton { display: inline-flex; align-items: center; text-decoration: none; }
+a.bouton:hover { color: #fff; }
+.admin-erreur { margin: 8px 0 0; color: var(--mon-espace); font-weight: 600; }
 .admin-panneau { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
 .admin-carte {
   align-self: stretch; display: flex; flex-direction: column; gap: 8px; padding: 24px;
