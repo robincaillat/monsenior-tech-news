@@ -1,6 +1,58 @@
 {
   "journees": [
     {
+      "date": "2026-11-24",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "Connexion par e-mail ou par SMS",
+          "ce_qui_change": "L'écran de connexion propose d'abord de choisir comment recevoir son code : « Se connecter par email » ou « Se connecter par SMS », avec un numéro de mobile français. Un lien « Changer de méthode » permet de revenir au choix.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Un parcours découverte en 4 étapes",
+          "ce_qui_change": "L'accueil présente un parcours en 4 étapes : « Bien découvrir l'Accueil Familial », « Regarder le module », « Mon dossier » (avancement et prochaine question), puis « Entretien approfondi » une fois le dossier complet, l'équipe MonSenior contactant alors la personne. L'onglet Dossier n'apparaît qu'à partir de cette étape.",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Un écran de connexion allégé",
+          "ce_qui_change": "Sur mobile, le logo MonSenior remplace le bandeau de marque. Les liens « Découvrir le métier » et « J'envisage de devenir accueillant familial » sont retirés au profit de « Pas de compte, je m'inscris » et du bouton « Une question ? ».",
+          "pour_qui": "Les candidats accueillants familiaux.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
+      "changements": [
+        {
+          "produit": "mon-espace",
+          "titre": "« Ce qui se passe ensuite » pour les familles",
+          "ce_qui_change": "Sur le parcours famille (« Je recherche un accueil »), l'écran de fin affiche maintenant « Ce qui se passe ensuite » : un conseiller rappelle sous 24 h, des familles d'accueil sont identifiées près de chez la personne, puis viennent la visite et le choix.",
+          "pour_qui": "Les familles qui cherchent un accueil.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Un récapitulatif de demande plus simple",
+          "ce_qui_change": "Le récapitulatif de la demande est replié par défaut, sans bouton « Modifier », et le bouton « Découvrir mon espace » a disparu.",
+          "pour_qui": "Les familles qui cherchent un accueil.",
+          "pourquoi": "À compléter."
+        },
+        {
+          "produit": "mon-espace",
+          "titre": "Plus de liens de compte sur le parcours famille",
+          "ce_qui_change": "Les liens « J'ai un compte » et d'accès au compte accueillant sont masqués sur le parcours famille, et le lien de bienvenue a été mis à jour.",
+          "pour_qui": "Les familles qui cherchent un accueil.",
+          "pourquoi": "À compléter."
+        }
+      ]
+    },
+    {
       "date": "2026-11-20",
       "changements": [
         {
